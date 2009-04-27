@@ -4,18 +4,38 @@ sys.path.append(os.path.expanduser("~/.vim/scripts/"))
 
 from scanner import scan
 
+class Shortcuted:
+    def __init__(self, symbol, f):
+        self._symbol = symbol
+        self._f = f
+
+    def _map(self):
+        vim.command("cnoremap %s <CR>" % self._symbol)
+
+    def _unmap(self):
+        vim.command("silent! cunmap %s" % self._symbol)
+
+    def __call__(self, *fargs, **kw):
+        self._map()
+        ret = self._f(*fargs, **kw)
+        self._unmap()
+        return ret
+
 def vim_input(message='input : ', default=''):
     vim.command("call inputsave()")
     vim.command("let user_input = input('%s','%s')" % (message, default))
     vim.command("call inputrestore()")
-    return vim.eval('user_input')
+    value = vim.eval('user_input')
+    if value is None:
+        raise Exception
+    return value
 
 def input_attribute(name, attributes):
     # Completion from list
-    return vim_input('<%s ' % name)
+    return Shortcuted('=', vim_input)('<%s ' % name)
 
 def input_value(name, attribute, default=''):
-    return vim_input('<%s %s="' % (name, attribute), default)
+    return Shortcuted('"', vim_input)('<%s %s="' % (name, attribute), default)
 
 def vim_replace(lineno, start, end, str):
     cb = vim.current.buffer
@@ -23,18 +43,21 @@ def vim_replace(lineno, start, end, str):
     cb[lineno] = line[:start] + str + line[end:]
 
 def attribute(method):
-    tag = get_latest_tag()
-    if tag is None:
-        return
+    try:
+        tag = get_latest_tag()
+        if tag is None:
+            return
 
-    attribute = input_attribute(tag.name(), tag.attributes())
-    if method == 'd':
-        tag.set_value(attribute, '')
-    else:
-        default = tag.get_value(attribute) if method == 'y' else ''
-        value = input_value(tag.name(), attribute, default)
-        tag.set_value(attribute, value)
-    vim_replace(tag.get_lineno(), tag.get_start(), tag.get_end(), tag.generate())
+        attribute = input_attribute(tag.name(), tag.attributes())
+        if method == 'd':
+            tag.set_value(attribute, '')
+        else:
+            default = tag.get_value(attribute) if method == 'y' else ''
+            value = input_value(tag.name(), attribute, default)
+            tag.set_value(attribute, value)
+        vim_replace(tag.get_lineno(), tag.get_start(), tag.get_end(), tag.generate())
+    except:
+        pass
 
 def is_current(line):
     cl, dummy = vim.current.window.cursor
