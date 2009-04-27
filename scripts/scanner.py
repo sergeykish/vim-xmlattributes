@@ -28,6 +28,15 @@ class Tag():
     def value(self, attribute):
         return self._attributes[attribute] if self._attributes.has_key(attribute) else ''
 
+    def get_start(self):
+        return self._start
+
+    def get_end(self):
+        return self._end
+
+    def get_lineno(self):
+        return self._lineno
+
 def scan(line, lineno):
     expression = '<[\w]+?>'
     pattern = re.compile(expression)

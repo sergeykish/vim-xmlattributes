@@ -27,10 +27,9 @@ def attribute(method):
     if tag is None:
         return
 
-    attributes = []
-    attribute = input_attribute(tag.name(), attributes)
-    value = input_value(tag.name(), attribute)
-    vim_replace(tag.lineno, tag.start, tag.end, tag.test(attribute, value))
+    attribute = input_attribute(tag.name(), tag.attributes())
+    value = input_value(tag.name(), attribute, tag.value(attribute))
+    vim_replace(tag.get_lineno(), tag.get_start(), tag.get_end(), tag.test(attribute, value))
 
 def is_current(line):
     cl, dummy = vim.current.window.cursor
