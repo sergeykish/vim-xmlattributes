@@ -17,7 +17,7 @@ class Tag():
         return self._text[1:-1]
 
     def name(self):
-        return self.body()
+        return self.body().split()[0]
 
     def test(self, attribute, value):
         return '<%s %s="%s">' % (self.body(), attribute, value)
