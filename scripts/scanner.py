@@ -1,11 +1,11 @@
 import re
 
 class Tag():
-    def __init__(self, match, line):
-        self.text  = match.group(0)
-        self.start = match.start()
-        self.end   = match.end()
-        self.line  = line
+    def __init__(self, match, lineno):
+        self.text   = match.group(0)
+        self.start  = match.start()
+        self.end    = match.end()
+        self.lineno = lineno
 
     def body(self):
         return self.text[1:-1]

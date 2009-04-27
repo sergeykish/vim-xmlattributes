@@ -30,7 +30,7 @@ def attribute(method):
     attributes = []
     attribute = input_attribute(tag.name(), attributes)
     value = input_value(tag.name(), attribute)
-    vim_replace(tag.line, tag.start, tag.end, tag.test(attribute, value))
+    vim_replace(tag.lineno, tag.start, tag.end, tag.test(attribute, value))
 
 def is_current(line):
     cl, dummy = vim.current.window.cursor
