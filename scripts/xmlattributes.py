@@ -4,16 +4,28 @@ sys.path.append(os.path.expanduser("~/.vim/scripts/"))
 
 from scanner import scan
 
+def vim_input(message='input : ', default=''):
+    vim.command("call inputsave()")
+    vim.command("let user_input = input('%s','%s')" % (message, default))
+    vim.command("call inputrestore()")
+    return vim.eval('user_input')
+
+def input_attribute(name, attributes):
+    # Completion from list
+    return vim_input('<%s ' % name)
+
 def attribute(method):
     tag = get_latest_tag()
     if tag is None:
         return
-    print tag.test()
 
     # replace
     cb = vim.current.buffer
     line = cb[tag.line]
-    cb[tag.line] = line[:tag.start] + tag.test() + line[tag.end:]
+
+    attributes = []
+    attribute = input_attribute(tag.name(), attributes)
+    cb[tag.line] = line[:tag.start] + tag.test(attribute) + line[tag.end:]
 
 def is_current(line):
     cl, dummy = vim.current.window.cursor

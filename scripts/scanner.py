@@ -2,16 +2,19 @@ import re
 
 class Tag():
     def __init__(self, match, line):
-        self.name  = match.group(0)
+        self.text  = match.group(0)
         self.start = match.start()
         self.end   = match.end()
         self.line  = line
 
     def body(self):
-        return self.name[1:-1]
+        return self.text[1:-1]
 
-    def test(self):
-        return '<%s class="test">' % self.body()
+    def name(self):
+        return self.body()
+
+    def test(self, attribute):
+        return '<%s %s="test">' % (self.body(), attribute)
 
 def scan(line, lineno):
     expression = '<[\w]+?>'
