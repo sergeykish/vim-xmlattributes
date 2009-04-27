@@ -13,8 +13,8 @@ class Tag():
     def name(self):
         return self.body()
 
-    def test(self, attribute):
-        return '<%s %s="test">' % (self.body(), attribute)
+    def test(self, attribute, value):
+        return '<%s %s="%s">' % (self.body(), attribute, value)
 
 def scan(line, lineno):
     expression = '<[\w]+?>'

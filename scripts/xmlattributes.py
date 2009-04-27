@@ -14,6 +14,9 @@ def input_attribute(name, attributes):
     # Completion from list
     return vim_input('<%s ' % name)
 
+def input_value(name, attribute, default=''):
+    return vim_input('<%s %s="' % (name, attribute))
+
 def attribute(method):
     tag = get_latest_tag()
     if tag is None:
@@ -25,7 +28,8 @@ def attribute(method):
 
     attributes = []
     attribute = input_attribute(tag.name(), attributes)
-    cb[tag.line] = line[:tag.start] + tag.test(attribute) + line[tag.end:]
+    value = input_value(tag.name(), attribute)
+    cb[tag.line] = line[:tag.start] + tag.test(attribute, value) + line[tag.end:]
 
 def is_current(line):
     cl, dummy = vim.current.window.cursor
