@@ -33,7 +33,7 @@ def attribute(method):
     else:
         value = input_value(tag.name(), attribute, tag.get_value(attribute))
         tag.set_value(attribute, value)
-    vim_replace(tag.get_lineno(), tag.get_start(), tag.get_end(), tag.test())
+    vim_replace(tag.get_lineno(), tag.get_start(), tag.get_end(), tag.generate())
 
 def is_current(line):
     cl, dummy = vim.current.window.cursor

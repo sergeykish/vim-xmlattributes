@@ -24,6 +24,6 @@ def test_attribute_value():
     assert tag.get_value('class') == 'varning test'
     assert tag.get_value('id') == ''
 
-def test_generation():
+def test_attribute_generation():
     tag = Tag('<a href="http://google.com" class="varning test">')
-    assert tag.test() == '<a href="http://google.com" class="varning test">'
+    assert tag.generate() == '<a href="http://google.com" class="varning test">'

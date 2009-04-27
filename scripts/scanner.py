@@ -19,8 +19,9 @@ class Tag():
     def name(self):
         return self.body().split()[0]
 
-    def test(self):
-        return '<%s %s>' % (self.name(), ' '.join(['%s="%s"' % (attribute, value) for attribute, value in self._attributes.items()]))
+    def generate(self):
+        attributes = ''.join([' %s="%s"' % item for item in self._attributes.items()])
+        return '<%s%s>' % (self.name(), attributes)
 
     def attributes(self):
         return self._attributes.keys()
