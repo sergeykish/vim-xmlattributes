@@ -10,11 +10,11 @@ def test_return_complex():
     assert scan('he<ul><a href="http://google.com" class="varning test">two', 0).body() == \
             'a href="http://google.com" class="varning test"'
 
-def test_name():
+def test_attribute_name():
     tag = Tag('<a href="http://google.com" class="varning test">')
     assert tag.name() == 'a'
 
-def test_attributes_list():
+def test_attribute_list():
     tag = Tag('<a href="http://google.com" class="varning test">')
     assert tag.attributes() == ['href', 'class']
 
@@ -27,3 +27,8 @@ def test_attribute_value():
 def test_attribute_generation():
     tag = Tag('<a href="http://google.com" class="varning test">')
     assert tag.generate() == '<a href="http://google.com" class="varning test">'
+
+def test_attribute_delete():
+    tag = Tag('<a href="http://google.com" class="varning test">')
+    tag.set_value('class', '')
+    assert tag.generate() == '<a href="http://google.com">'
