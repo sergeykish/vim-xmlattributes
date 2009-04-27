@@ -17,8 +17,10 @@ class Shortcuted:
 
     def __call__(self, *fargs, **kw):
         self._map()
-        ret = self._f(*fargs, **kw)
-        self._unmap()
+        try:
+            ret = self._f(*fargs, **kw)
+        except (Exception, KeyboardInterrupt):
+            self._unmap()
         return ret
 
 def vim_input(message='input : ', default=''):
