@@ -13,10 +13,10 @@ class Tag():
     def test(self):
         return '<%s class="test">' % self.body()
 
-def scan(line):
+def scan(line, lineno):
     expression = '<[\w]+?>'
     pattern = re.compile(expression)
-    result = [Tag(match, 0) for match in pattern.finditer(line)]
+    result = [Tag(match, lineno) for match in pattern.finditer(line)]
     if result == []:
         return None
     return result[-1]
