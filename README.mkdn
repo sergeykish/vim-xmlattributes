@@ -17,8 +17,8 @@ QUESTIONS:
 TODO:
 
 * complete attribute input by '=' and value input by '"'
-* parse attributes - use regular expressions again
-* exit on escape
+* default values for attribute input
+* escape
 * multyline tags
 * there are many places for cursor, it is marked "{}"
 ** `<{}div ...>...</div>`
