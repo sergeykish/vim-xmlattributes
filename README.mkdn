@@ -1,3 +1,25 @@
+Plugin add movements for editing XML attributes {d,c,y}attr<attribute>="<value>"
+
+For example:
+
+* dattrid
+* cattrhref="#"
+* yattrclass="test"
+
 Add to .vimrc to activate
 
     au Filetype html,xml,xsl source ~/.vim/scripts/xmlattributes.vim
+
+QUESTIONS:
+
+* create dirrectory `~/.vim/scripts/xmlattributes/` for python files?
+
+TODO:
+
+* complete attribute input by '=' and value input by '"'
+* parse attributes - use regular expressions again
+* multyline tags
+* there are many places for cursor, it is marked "{}"
+** <{}div ...>...</div>
+** <div ...>...{}...</div>
+** <div ...>...</div{}>
