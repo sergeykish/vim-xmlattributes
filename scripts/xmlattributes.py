@@ -31,7 +31,8 @@ def attribute(method):
     if method == 'd':
         tag.set_value(attribute, '')
     else:
-        value = input_value(tag.name(), attribute, tag.get_value(attribute))
+        default = tag.get_value(attribute) if method == 'y' else ''
+        value = input_value(tag.name(), attribute, default)
         tag.set_value(attribute, value)
     vim_replace(tag.get_lineno(), tag.get_start(), tag.get_end(), tag.generate())
 
