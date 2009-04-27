@@ -25,8 +25,11 @@ class Tag():
     def attributes(self):
         return self._attributes.keys()
 
-    def value(self, attribute):
+    def get_value(self, attribute):
         return self._attributes[attribute] if self._attributes.has_key(attribute) else ''
+
+    def set_value(self, attribute, value):
+        self._attributes[attribute] = value
 
     def get_start(self):
         return self._start

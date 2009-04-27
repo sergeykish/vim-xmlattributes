@@ -15,7 +15,7 @@ def input_attribute(name, attributes):
     return vim_input('<%s ' % name)
 
 def input_value(name, attribute, default=''):
-    return vim_input('<%s %s="' % (name, attribute))
+    return vim_input('<%s %s="' % (name, attribute), default)
 
 def vim_replace(lineno, start, end, str):
     cb = vim.current.buffer
@@ -28,7 +28,7 @@ def attribute(method):
         return
 
     attribute = input_attribute(tag.name(), tag.attributes())
-    value = input_value(tag.name(), attribute, tag.value(attribute))
+    value = input_value(tag.name(), attribute, tag.get_value(attribute))
     vim_replace(tag.get_lineno(), tag.get_start(), tag.get_end(), tag.test(attribute, value))
 
 def is_current(line):
