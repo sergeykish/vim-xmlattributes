@@ -1,0 +1,3 @@
+Add to .vimrc to activate
+
+    au Filetype html,xml,xsl source ~/.vim/scripts/xmlattributes.vim
