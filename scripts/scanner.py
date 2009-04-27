@@ -38,7 +38,7 @@ class Tag():
         return self._lineno
 
 def scan(line, lineno):
-    expression = '<[\w]+?>'
+    expression = '<[^/].+?>'
     pattern = re.compile(expression)
     result = [Tag(match.group(0), match.start(), match.end(), lineno)
             for match in pattern.finditer(line)]

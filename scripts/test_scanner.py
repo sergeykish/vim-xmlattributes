@@ -6,6 +6,10 @@ def test_return_last():
 def test_return_open_tags():
     assert scan('he<ul><li>one</li>two', 0).body() == 'li'
 
+def test_return_complex():
+    assert scan('he<ul><a href="http://google.com" class="varning test">two', 0).body() == \
+            'a href="http://google.com" class="varning test"'
+
 def test_attributes_list():
     tag = Tag('<a href="http://google.com" class="varning test">')
     assert tag.attributes() == ['href', 'class']
