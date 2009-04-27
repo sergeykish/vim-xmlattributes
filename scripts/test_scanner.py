@@ -10,25 +10,24 @@ def test_return_complex():
     assert scan('he<ul><a href="http://google.com" class="varning test">two', 0).body() == \
             'a href="http://google.com" class="varning test"'
 
-def test_attribute_name():
-    tag = Tag('<a href="http://google.com" class="varning test">')
-    assert tag.name() == 'a'
+class TestTag:
+    def setUp(self):
+        self._tag = Tag('<a href="http://google.com" class="varning test">')
 
-def test_attribute_list():
-    tag = Tag('<a href="http://google.com" class="varning test">')
-    assert tag.attributes() == ['href', 'class']
+    def test_name(self):
+        assert self._tag.name() == 'a'
 
-def test_attribute_value():
-    tag = Tag('<a href="http://google.com" class="varning test">')
-    assert tag.get_value('href') == 'http://google.com'
-    assert tag.get_value('class') == 'varning test'
-    assert tag.get_value('id') == ''
+    def test_list(self):
+        assert self._tag.attributes() == ['href', 'class']
 
-def test_attribute_generation():
-    tag = Tag('<a href="http://google.com" class="varning test">')
-    assert tag.generate() == '<a href="http://google.com" class="varning test">'
+    def test_value(self):
+        assert self._tag.get_value('href') == 'http://google.com'
+        assert self._tag.get_value('class') == 'varning test'
+        assert self._tag.get_value('id') == ''
 
-def test_attribute_delete():
-    tag = Tag('<a href="http://google.com" class="varning test">')
-    tag.set_value('class', '')
-    assert tag.generate() == '<a href="http://google.com">'
+    def test_generation(self):
+        assert self._tag.generate() == '<a href="http://google.com" class="varning test">'
+
+    def test_delete(self):
+        self._tag.set_value('class', '')
+        assert self._tag.generate() == '<a href="http://google.com">'
