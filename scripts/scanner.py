@@ -19,8 +19,8 @@ class Tag():
     def name(self):
         return self.body().split()[0]
 
-    def test(self, attribute, value):
-        return '<%s %s="%s">' % (self.body(), attribute, value)
+    def test(self):
+        return '<%s %s>' % (self.name(), ' '.join(['%s="%s"' % (attribute, value) for attribute, value in self._attributes.items()]))
 
     def attributes(self):
         return self._attributes.keys()
@@ -29,7 +29,10 @@ class Tag():
         return self._attributes[attribute] if self._attributes.has_key(attribute) else ''
 
     def set_value(self, attribute, value):
-        self._attributes[attribute] = value
+        if value == '':
+            del(self._attributes[attribute])
+        else:
+            self._attributes[attribute] = value
 
     def get_start(self):
         return self._start

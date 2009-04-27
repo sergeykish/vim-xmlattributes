@@ -28,8 +28,12 @@ def attribute(method):
         return
 
     attribute = input_attribute(tag.name(), tag.attributes())
-    value = input_value(tag.name(), attribute, tag.get_value(attribute))
-    vim_replace(tag.get_lineno(), tag.get_start(), tag.get_end(), tag.test(attribute, value))
+    if method == 'd':
+        tag.set_value(attribute, '')
+    else:
+        value = input_value(tag.name(), attribute, tag.get_value(attribute))
+        tag.set_value(attribute, value)
+    vim_replace(tag.get_lineno(), tag.get_start(), tag.get_end(), tag.test())
 
 def is_current(line):
     cl, dummy = vim.current.window.cursor
