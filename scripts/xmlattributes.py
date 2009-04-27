@@ -17,19 +17,20 @@ def input_attribute(name, attributes):
 def input_value(name, attribute, default=''):
     return vim_input('<%s %s="' % (name, attribute))
 
+def vim_replace(lineno, start, end, str):
+    cb = vim.current.buffer
+    line = cb[lineno]
+    cb[lineno] = line[:start] + str + line[end:]
+
 def attribute(method):
     tag = get_latest_tag()
     if tag is None:
         return
 
-    # replace
-    cb = vim.current.buffer
-    line = cb[tag.line]
-
     attributes = []
     attribute = input_attribute(tag.name(), attributes)
     value = input_value(tag.name(), attribute)
-    cb[tag.line] = line[:tag.start] + tag.test(attribute, value) + line[tag.end:]
+    vim_replace(tag.line, tag.start, tag.end, tag.test(attribute, value))
 
 def is_current(line):
     cl, dummy = vim.current.window.cursor
