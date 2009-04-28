@@ -14,7 +14,7 @@ FEATURES:
 
 * fill attribute value by current value on yanking if exist
 * complete attribute input by '=' and value input by '"', Enter works too
-* cancel by <C-C> or <Esc>
+* cancel by `<C-C>` or `<Esc>`
 
 QUESTIONS:
 
@@ -22,7 +22,7 @@ QUESTIONS:
 
 TODO:
 
-* completion attributes input from existing (:h command-completion)
+* completion attributes input from existing (`:h command-completion`)
 * multyline tags
 * there are many places for cursor, it is marked "{}"
 ** `<{}div ...>...</div>`
