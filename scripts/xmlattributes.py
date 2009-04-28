@@ -19,7 +19,7 @@ class Shortcuted:
         self._map()
         try:
             ret = self._f(*fargs, **kw)
-        except (Exception, KeyboardInterrupt):
+        finally:
             self._unmap()
         return ret
 
