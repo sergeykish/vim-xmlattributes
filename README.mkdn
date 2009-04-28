@@ -10,15 +10,19 @@ Add to .vimrc to activate
 
     au Filetype html,xml,xsl source ~/.vim/scripts/xmlattributes.vim
 
+FEATURES:
+
+* fill attribute value by current value on yanking if exist
+* complete attribute input by '=' and value input by '"', Enter works too
+* cancel by <C-C> or <Esc>
+
 QUESTIONS:
 
 * create dirrectory `~/.vim/scripts/xmlattributes/` for python files?
 
 TODO:
 
-* complete attribute input by '=' and value input by '"'
-* default values for attribute input
-* escape
+* completion attributes input from existing (:h command-completion)
 * multyline tags
 * there are many places for cursor, it is marked "{}"
 ** `<{}div ...>...</div>`
